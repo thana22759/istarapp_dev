@@ -190,7 +190,7 @@
     </v-layout>
 
     <HalloweenOverlay
-      v-show="isHalloweenOn"
+      v-if="isHalloweenOn"
       ref="halo"
       :behind="true"
       :minDecor="8"
@@ -199,7 +199,7 @@
     />
 
     <ChristmasOverlay
-      v-show="isChristmasOn"
+      v-if="isChristmasOn"
       ref="xmas"
       :behind="true"
       :minDecor="6"
@@ -533,7 +533,7 @@ export default {
         this.isHalloweenOn = true;
         this.setHalloween(true);
       } else if (monthNumber == 12) {
-        // เดือนพฤศจิกายน-ธันวาคม - ธีมคริสมาสต์ (11 สำหรับทดสอบ, 12 สำหรับจริง)
+        // เดือนธันวาคม - ธีมคริสมาสต์)
         this.currentTheme = 'christmas';
         this.isChristmasOn = true;
         this.setChristmas(true);
