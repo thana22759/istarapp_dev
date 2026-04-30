@@ -86,13 +86,19 @@ Themes activate automatically based on the current month. State lives in `App.vu
 Stored in localStorage as `currentTheme` (`'none'` / `'halloween'` / `'christmas'`). Only one theme active at a time. Music toggle is in `App.vue` (not in the overlay component). Overlays use `pointer-events: none` so they don't block clicks.
 
 **Z-index hierarchy** (highest to lowest):
-- `2400` — Vuetify dialogs (must be above navigation drawer)
+- `2400` — Vuetify dialogs (must be above app bar + drawer)
 - `2000` — Dialog backdrop
-- `1000` — Navigation drawer + app bar
-- `50` — Santa sleigh (Christmas)
-- `10` — Cards/tables
-- `5` — Christmas overlay background
-- `1` — Main content
+- `1100` — App bar (frosted glass, always on top)
+- `1000` — Navigation drawer (full-height panel; sits behind app bar)
+- `999`  — Drawer scrim
+- `50`   — Santa sleigh (Christmas)
+- `10`   — Cards/tables
+- `5`    — Christmas overlay background
+- `1`    — Main content
+
+The app bar uses `backdrop-filter: blur()` + `rgba(var(--v-theme-surface), 0.82)` for a frosted glass effect — do not re-add `opacity` to `.v-app-bar` (it makes the whole bar including text translucent and lets body content bleed through).
+
+The drawer panel itself is full-height (Vuetify's default) and sits *behind* the app bar — but `.v-navigation-drawer__content` has `padding-top: 64px` so the first item (avatar) renders below the app bar instead of being hidden. Don't try to offset `.v-navigation-drawer { top: 64px }` directly; Vuetify's inline positioning fights it and the avatar item ends up clipped.
 
 ### Date Formatting
 
